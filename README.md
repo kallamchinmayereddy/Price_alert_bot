@@ -16,7 +16,7 @@ A Flask-based web application that tracks product prices from e-commerce website
 
 - **Backend**: Flask (Python)
 - **Database**: MySQL
-- **Web Scraping**: BeautifulSoup, Requests
+- **Web Scraping**: Selenium, Chrome WebDriver
 - **Frontend**: HTML, CSS, Jinja2 Templates
 - **Email**: SMTP (Gmail)
 
@@ -51,7 +51,7 @@ pip install -r requirements.txt
 
 Additional packages:
 ```bash
-pip install mysql-connector-python python-dotenv
+pip install mysql-connector-python python-dotenv webdriver-manager
 ```
 
 ### 4. Database Setup
@@ -177,7 +177,10 @@ Currently supports price scraping from:
 
 ### Customizing Scraper
 
-Edit `scraper.py` to add support for more websites.
+Edit `scraper.py` to add support for more websites. The scraper uses Selenium with Chrome WebDriver:
+- Update the CSS selectors or element IDs to match the target website
+- Adjust wait times if needed
+- Add new price extraction logic for different HTML structures
 
 ## Troubleshooting
 
@@ -191,8 +194,13 @@ Edit `scraper.py` to add support for more websites.
 - Check spam folder
 
 ### Issue: No prices being tracked
-- Verify website selector in `scraper.py` matches the site's HTML
-- Check browser console for CSS selectors
+- Verify CSS selectors or element IDs in `scraper.py` match the website's HTML
+- Check if the website blocks Selenium automation (may need user-agent changes)
+- Ensure Chrome WebDriver is compatible with your Chrome version
+
+### Issue: "Chrome not found" or WebDriver errors
+- `webdriver-manager` should auto-download the correct version
+- If issues persist, manually download ChromeDriver and specify its path in `scraper.py`
 
 ## Future Enhancements
 
